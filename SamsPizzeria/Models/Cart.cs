@@ -8,6 +8,7 @@ namespace SamsPizzeria.Models
     public class Cart
     {
         private List<CartLine> lineCollection = new List<CartLine>();
+
         public virtual void AddItem(Matratt dish, int quantity)
         {
             CartLine line = lineCollection
