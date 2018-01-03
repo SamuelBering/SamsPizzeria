@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SamsPizzeria.Models;
 
 namespace SamsPizzeria
 {
@@ -22,6 +24,12 @@ namespace SamsPizzeria
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            var debug = Configuration["Data:TomasosProducts:ConnectionString"];
+            services.AddDbContext<TomasosContext>(options =>
+                    options.UseSqlServer(Configuration["Data:TomasosProducts:ConnectionString"]));
+            services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +46,8 @@ namespace SamsPizzeria
             }
 
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

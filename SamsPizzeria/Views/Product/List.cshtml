@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Dish>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+
+<h2>List</h2>
+
+@foreach (Dish d in Model)
+{
+    @Html.Partial("ProductSummary", d)
+}
