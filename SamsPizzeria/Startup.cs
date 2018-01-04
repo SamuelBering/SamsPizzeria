@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,8 +25,16 @@ namespace SamsPizzeria
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var debug = Configuration["Data:TomasosIdentity:ConnectionString"];
+
+            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(
+                Configuration["Data:TomasosIdentity:ConnectionString"]));
+
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddMvc();
-            var debug = Configuration["Data:TomasosProducts:ConnectionString"];
             services.AddDbContext<TomasosContext>(options =>
                     options.UseSqlServer(Configuration["Data:TomasosProducts:ConnectionString"]));
             services.AddTransient<IProductRepository, EFProductRepository>();
@@ -49,9 +58,13 @@ namespace SamsPizzeria
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseStatusCodePages();
+
             app.UseStaticFiles();
 
             app.UseSession();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
