@@ -15,6 +15,7 @@ namespace SamsPizzeria.Models
         }
 
         public IQueryable<Matratt> Dishes => _context.Matratt;
+
         public IQueryable<Produkt> Products => _context.Produkt;
 
     }

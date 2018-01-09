@@ -45,6 +45,12 @@
 
             @await Component.InvokeAsync("CartSummary")
 
+            @if (User?.Identity?.IsAuthenticated ?? false)
+                 {
+                    <a asp-controller="Account" asp-action="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                 }
+
+
         </div>
     </nav>
 

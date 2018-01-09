@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SamsPizzeria.Models;
+using SamsPizzeria.Services;
 
 namespace SamsPizzeria
 {
@@ -38,6 +39,7 @@ namespace SamsPizzeria
             services.AddDbContext<TomasosContext>(options =>
                     options.UseSqlServer(Configuration["Data:TomasosProducts:ConnectionString"]));
             services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddTransient<IUserRolesService, UserRolesService>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IOrderRepository, EFOrderRepository>();
@@ -70,8 +72,11 @@ namespace SamsPizzeria
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Product}/{action=List}/{id?}");
             });
+
+            AppIdentityDbContext.CreateDefaultRoles(app.ApplicationServices, Configuration).Wait();
+            AppIdentityDbContext.CreateDefaultUsers(app.ApplicationServices, Configuration).Wait();
         }
     }
 }
