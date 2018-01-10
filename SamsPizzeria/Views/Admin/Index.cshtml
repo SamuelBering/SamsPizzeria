@@ -1,0 +1,35 @@
+﻿@model IEnumerable<UserRolesModificationModel>
+
+<div class="bg-primary m-1 p-1 text-white">
+    <h4>Användare</h4>
+</div>
+
+<table class="table table-sm table-bordered">
+    <tr><th>ID</th><th>Förnamn</th><th>Efternamn</th><th>Email</th><th>Roll</th></tr>
+    @if (Model.Count() == 0)
+    {
+        <tr><td colspan="3" class="text-center">Inga användare</td></tr>
+    }
+    else
+    {
+        foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.Email</td>
+                <td>
+                    <form asp-action="UpdateUserRole" method="post">
+                        <select id="SelectedRoleIds" name="SelectedRoleIds" multiple="multiple" asp-items="@user.Roles"></select>
+                        <input type="hidden" name="UserId" value="@user.UserId" />
+                        <input type="submit" value="Spara" class="btn btn-default" />
+                    </form>
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+<a class="btn btn-primary" asp-action="Create">Create</a>
+

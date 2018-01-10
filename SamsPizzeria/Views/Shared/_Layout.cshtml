@@ -34,34 +34,25 @@
                 <li class="nav-item active">
                     <a class="nav-link" asp-controller="Product" asp-action="List">Meny</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Account" asp-action="Register">Skapa konto</a>
+                </li>
+
             </ul>
 
             @await Component.InvokeAsync("CartSummary")
 
+            @if (User?.Identity?.IsAuthenticated ?? false)
+                 {
+                    <a asp-controller="Account" asp-action="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                 }
+
+
         </div>
     </nav>
-
-    @*<nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SamsPizzeria</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a asp-area="" asp-controller="Product" asp-action="List">Meny</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>*@
 
     <div class="container body-content">
         @RenderBody()

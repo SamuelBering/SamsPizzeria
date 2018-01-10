@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SamsPizzeria.Models;
@@ -9,6 +10,7 @@ using SamsPizzeria.Models.ViewModels;
 
 namespace SamsPizzeria.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private IProductRepository _repository;
@@ -32,10 +34,10 @@ namespace SamsPizzeria.Controllers
 
                 var dish = new Dish
                 {
-                    Id=d.MatrattId,
-                    Description=d.Beskrivning,
+                    Id = d.MatrattId,
+                    Description = d.Beskrivning,
                     Name = d.MatrattNamn,
-                    Price=d.Pris,
+                    Price = d.Pris,
                     Category = d.MatrattTypNavigation.Beskrivning
                 };
 
