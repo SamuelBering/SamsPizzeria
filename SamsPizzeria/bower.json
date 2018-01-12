@@ -4,6 +4,7 @@
   "dependencies": {
     "bootstrap": "4.0.0-alpha.6",
     "tether": "1.4.3",
-    "fontawesome": "4.7.0"
+    "fontawesome": "4.7.0",
+    "Microsoft.jQuery.Unobtrusive.Ajax": "3.2.3"
   }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,5 +14,7 @@ namespace SamsPizzeria.Models.ViewModels
         public decimal TotalAmount { get; set; }
         public DateTime OrderDate { get; set; }
         public bool Delivered { get; set; }
+
+        public List<SelectListItem> OrderStatusSelectList;
     }
 }

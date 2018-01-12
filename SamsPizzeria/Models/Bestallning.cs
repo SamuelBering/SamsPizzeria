@@ -14,8 +14,9 @@ namespace SamsPizzeria.Models
         public DateTime BestallningDatum { get; set; }
         public int Totalbelopp { get; set; }
         public bool Levererad { get; set; }
-        public int KundId { get; set; }
+        public string UserId { get; set; }
 
+        public int KundId { get; set; }
         public Kund Kund { get; set; }
         public ICollection<BestallningMatratt> BestallningMatratt { get; set; }
     }

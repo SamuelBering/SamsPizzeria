@@ -37,7 +37,7 @@ namespace Users.Controllers
         public async Task<ViewResult> Index()
         {            
             var usersVM = await userRolesService.GetUsers();
-
+            
             return View(usersVM);
         }
     }

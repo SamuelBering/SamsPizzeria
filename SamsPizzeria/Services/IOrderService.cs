@@ -8,6 +8,9 @@ namespace SamsPizzeria.Services
 {
     public interface IOrderService
     {
-        ICollection<OrderViewModel> Orders { get; }
+        Task<ICollection<OrderViewModel>> GetOrders();
+
+        void UpdateOrderStatus(int orderId, bool status);
+        
     }
 }

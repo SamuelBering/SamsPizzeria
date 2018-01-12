@@ -20,6 +20,13 @@ namespace SamsPizzeria.Models
                     .Include(b => b.BestallningMatratt)
                         .ThenInclude(bm => bm.Matratt);
 
+        public void UpdateOrderStatus(int orderId, bool status)
+        {
+            var order = _context.Bestallning.Single(o => o.BestallningId == orderId);
+            order.Levererad = status;
+            _context.SaveChanges();
+        }
+
         public void SaveOrder(Bestallning order)
         {
             _context.AttachRange(order.BestallningMatratt.Select(bm => bm.Matratt));
