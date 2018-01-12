@@ -4,6 +4,22 @@ $(".orderStatus").change(event => {
     $(form).submit();
 });
 
+$('#DeleteOrderModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var orderId = button.data('orderid'); // Extract info from data-* attributes
+
+
+    var modal = $(this);
+    let okButton = $("#okButton");
+    okButton.unbind('click');
+
+    okButton.click(() => {
+        console.log("OrderID är " + orderId);
+        modal.modal('hide');
+    });
+   
+});
+
 function onBegin(context) {
     let statusDiv = $("#status");
     statusDiv.removeClass("animationStop");
@@ -20,4 +36,6 @@ function onComplete(context) {
         statusDiv.addClass("animationStop");
     }, 400);   
 }
+
+
 
