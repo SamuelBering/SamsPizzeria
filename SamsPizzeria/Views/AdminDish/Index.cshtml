@@ -1,0 +1,39 @@
+﻿@model ICollection<DishModificationModel>
+
+@{
+    ViewData["Title"] = "Uppdatera maträtter";
+}
+
+<h2>Uppdatera maträtter</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Namn</th>
+            <th>Kategori</th>
+            <th>Pris</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dish in Model)
+        {
+            <tr>
+                <td>
+                    @dish.Name
+                </td>
+                <td>
+                    @dish.SelectedCategory
+                </td>
+                <td>
+                    @dish.Price.ToString("c")
+                </td>
+                <td>
+                    <a asp-action="EditDish" asp-route-id="@dish.Id" class="btn btn-primary btn-sm" role="button">Redigera</a>
+                </td>
+            </tr>
+
+        }
+
+    </tbody>
+</table>
+

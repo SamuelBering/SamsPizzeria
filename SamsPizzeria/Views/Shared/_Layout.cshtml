@@ -31,31 +31,36 @@
             <a class="navbar-brand" href="#">Tomasos Pizzeria</a>
 
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" asp-controller="Home" asp-action="Index">Home </a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" asp-controller="Product" asp-action="List">Meny</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin</a>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" asp-controller="Admin" asp-action="Index">Användare</a>
+                        <a class="dropdown-item" asp-controller="AdminOrder" asp-action="OrderList">Beställningar</a>
+                        <a class="dropdown-item" asp-controller="AdminDish" asp-action="Index">Maträtter</a>
+                    </div>
                 </li>
-                <li class="nav-item active">
+
+                <li class="nav-item">
                     <a class="nav-link" asp-controller="Account" asp-action="Register">Skapa konto</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" asp-controller="AdminOrder" asp-action="OrderList">Orders</a>
-                </li>
                 
-
             </ul>
 
             @await Component.InvokeAsync("CartSummary")
 
             @if (User?.Identity?.IsAuthenticated ?? false)
-                 {
-                    <a asp-controller="Account" asp-action="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
-                 }
+            {
+                <a asp-controller="Account" asp-action="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            }
 
 
         </div>

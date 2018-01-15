@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SamsPizzeria.Infrastructure;
@@ -7,6 +8,7 @@ using SamsPizzeria.Models.ViewModels;
 
 namespace SamsPizzeria.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private IProductRepository repository;
