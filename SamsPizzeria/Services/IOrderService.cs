@@ -11,6 +11,8 @@ namespace SamsPizzeria.Services
         Task<ICollection<OrderViewModel>> GetOrders();
 
         void UpdateOrderStatus(int orderId, bool status);
+
+        void DeleteOrder(int orderId);
         
     }
 }

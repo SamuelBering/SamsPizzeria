@@ -34,13 +34,13 @@ namespace SamsPizzeria.Models
 
                 entity.Property(e => e.BestallningDatum).HasColumnType("datetime");
 
-                entity.Property(e => e.KundId).HasColumnName("KundID");
+                //entity.Property(e => e.KundId).HasColumnName("KundID");
 
-                entity.HasOne(d => d.Kund)
-                    .WithMany(p => p.Bestallning)
-                    .HasForeignKey(d => d.KundId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Bestallning_Kund");
+                //entity.HasOne(d => d.Kund)
+                //    .WithMany(p => p.Bestallning)
+                //    .HasForeignKey(d => d.KundId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_Bestallning_Kund");
             });
 
             modelBuilder.Entity<BestallningMatratt>(entity =>

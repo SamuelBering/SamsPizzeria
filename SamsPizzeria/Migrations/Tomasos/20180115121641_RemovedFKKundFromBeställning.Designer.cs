@@ -11,9 +11,10 @@ using System;
 namespace SamsPizzeria.Migrations.Tomasos
 {
     [DbContext(typeof(TomasosContext))]
-    partial class TomasosContextModelSnapshot : ModelSnapshot
+    [Migration("20180115121641_RemovedFKKundFromBeställning")]
+    partial class RemovedFKKundFromBeställning
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +30,8 @@ namespace SamsPizzeria.Migrations.Tomasos
                     b.Property<DateTime>("BestallningDatum")
                         .HasColumnType("datetime");
 
+                    b.Property<int?>("KundId");
+
                     b.Property<bool>("Levererad");
 
                     b.Property<int>("Totalbelopp");
@@ -36,6 +39,8 @@ namespace SamsPizzeria.Migrations.Tomasos
                     b.Property<string>("UserId");
 
                     b.HasKey("BestallningId");
+
+                    b.HasIndex("KundId");
 
                     b.ToTable("Bestallning");
                 });
@@ -179,6 +184,13 @@ namespace SamsPizzeria.Migrations.Tomasos
                     b.HasKey("ProduktId");
 
                     b.ToTable("Produkt");
+                });
+
+            modelBuilder.Entity("SamsPizzeria.Models.Bestallning", b =>
+                {
+                    b.HasOne("SamsPizzeria.Models.Kund")
+                        .WithMany("Bestallning")
+                        .HasForeignKey("KundId");
                 });
 
             modelBuilder.Entity("SamsPizzeria.Models.BestallningMatratt", b =>

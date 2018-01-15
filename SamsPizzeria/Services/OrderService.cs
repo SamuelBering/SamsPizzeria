@@ -65,6 +65,11 @@ namespace SamsPizzeria.Services
             return orderListVM;
         }
 
+        public void DeleteOrder(int orderId)
+        {
+            _repository.DeleteOrder(orderId);
+        }
+
     }
 }
 

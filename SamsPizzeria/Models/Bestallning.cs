@@ -16,8 +16,8 @@ namespace SamsPizzeria.Models
         public bool Levererad { get; set; }
         public string UserId { get; set; }
 
-        public int KundId { get; set; }
-        public Kund Kund { get; set; }
+        //public int KundId { get; set; }
+        //public Kund Kund { get; set; }
         public ICollection<BestallningMatratt> BestallningMatratt { get; set; }
     }
 }

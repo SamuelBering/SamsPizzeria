@@ -7,7 +7,7 @@ namespace SamsPizzeria.Models
     {
         public Kund()
         {
-            Bestallning = new HashSet<Bestallning>();
+            //Bestallning = new HashSet<Bestallning>();
         }
 
         public int KundId { get; set; }
@@ -20,6 +20,6 @@ namespace SamsPizzeria.Models
         public string AnvandarNamn { get; set; }
         public string Losenord { get; set; }
 
-        public ICollection<Bestallning> Bestallning { get; set; }
+        //public ICollection<Bestallning> Bestallning { get; set; }
     }
 }

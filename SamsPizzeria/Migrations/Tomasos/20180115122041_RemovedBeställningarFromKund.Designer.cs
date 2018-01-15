@@ -11,9 +11,10 @@ using System;
 namespace SamsPizzeria.Migrations.Tomasos
 {
     [DbContext(typeof(TomasosContext))]
-    partial class TomasosContextModelSnapshot : ModelSnapshot
+    [Migration("20180115122041_RemovedBeställningarFromKund")]
+    partial class RemovedBeställningarFromKund
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

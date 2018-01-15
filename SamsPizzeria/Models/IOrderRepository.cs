@@ -10,5 +10,6 @@ namespace SamsPizzeria.Models
         IQueryable<Bestallning> Orders { get; }
         void UpdateOrderStatus(int orderId, bool status);
         void SaveOrder(Bestallning order);
+        void DeleteOrder(int orderId);
     }
 }
