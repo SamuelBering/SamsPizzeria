@@ -1,0 +1,86 @@
+﻿@model ICollection<OrderViewModel>
+
+@{
+    ViewData["Title"] = "Orderlista";
+}
+
+<h2>Orderlista</h2>
+
+<div id="status" class="animationStop">
+    <span class="fa fa-spinner"></span>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ordernummer</th>
+            <th>KundId</th>
+            <th>Kundnamn</th>
+            <th>Totalbelopp</th>
+            <th>Datum</th>
+            <th>Levererad</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (OrderViewModel order in Model)
+        {
+            <tr id="order-@order.OrderId">
+                <td>@order.OrderId</td>
+                <td>@order.CustomerId</td>
+                <td>@order.CustomerName</td>
+                <td>@order.TotalAmount</td>
+                <td>@order.OrderDate.ToShortDateString()</td>
+                <td>
+                    <form asp-action="UpdateOrderStatus" data-ajax="true"
+                          data-ajax-method="POST"
+                          data-ajax-begin="onBegin"
+                          data-ajax-complete="onComplete">
+                        <input type="hidden" name="OrderId" value="@order.OrderId" />
+                        <select class="orderStatus" name="Status" asp-items=@order.OrderStatusSelectList></select>
+                    </form>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteOrderModal" data-orderId="@order.OrderId">Ta bort</button>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<!-- Delete order modal -->
+<div class="modal fade" id="DeleteOrderModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ta bort</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Vill du ta bort denna order?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="okButton" type="button" class="btn btn-primary">Ok</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Avbryt</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section CSS
+    {
+    <link href="~/css/AdminOrder/OrderList.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@section Scripts
+    {
+    <script src="~/js/AdminOrder/OrderList.js" asp-append-version="true"></script>
+}
+
+
+
+
+

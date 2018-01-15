@@ -16,9 +16,15 @@ namespace SamsPizzeria.Models
         }
 
         public IQueryable<Bestallning> Orders => _context.Bestallning
-                    .Include(b => b.Kund)
                     .Include(b => b.BestallningMatratt)
                         .ThenInclude(bm => bm.Matratt);
+
+        public void UpdateOrderStatus(int orderId, bool status)
+        {
+            var order = _context.Bestallning.Single(o => o.BestallningId == orderId);
+            order.Levererad = status;
+            _context.SaveChanges();
+        }
 
         public void SaveOrder(Bestallning order)
         {
@@ -29,6 +35,19 @@ namespace SamsPizzeria.Models
             }
             _context.SaveChanges();
         }
+
+        public void DeleteOrder(int orderId)
+        {
+            var order = Orders.Single(o =>
+                o.BestallningId == orderId);
+
+            order.BestallningMatratt.Clear();
+            _context.SaveChanges();
+
+            _context.Bestallning.Remove(order);
+            _context.SaveChanges();
+        }
+
 
     }
 }

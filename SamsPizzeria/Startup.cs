@@ -40,6 +40,7 @@ namespace SamsPizzeria
                     options.UseSqlServer(Configuration["Data:TomasosProducts:ConnectionString"]));
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddTransient<IUserRolesService, UserRolesService>();
+            services.AddTransient<IOrderService, OrderService>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IOrderRepository, EFOrderRepository>();

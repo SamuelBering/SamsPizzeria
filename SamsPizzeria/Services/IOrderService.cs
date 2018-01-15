@@ -1,15 +1,18 @@
-﻿using System;
+﻿using SamsPizzeria.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SamsPizzeria.Models
+namespace SamsPizzeria.Services
 {
-    public interface IOrderRepository
+    public interface IOrderService
     {
-        IQueryable<Bestallning> Orders { get; }
+        Task<ICollection<OrderViewModel>> GetOrders();
+
         void UpdateOrderStatus(int orderId, bool status);
-        void SaveOrder(Bestallning order);
+
         void DeleteOrder(int orderId);
+        
     }
 }

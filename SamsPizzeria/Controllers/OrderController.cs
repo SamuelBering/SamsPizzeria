@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SamsPizzeria.Models;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace SamsPizzeria.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private IOrderRepository repository;
@@ -18,12 +21,13 @@ namespace SamsPizzeria.Controllers
 
         public RedirectToActionResult SendOrder()
         {
+
             Bestallning order = new Bestallning
             {
-                BestallningDatum=DateTime.Now,
-                Totalbelopp=(int)(cart.ComputeTotalValue()+0.5M),
-                Levererad=false,
-                KundId=1
+                BestallningDatum = DateTime.Now,
+                Totalbelopp = (int)(cart.ComputeTotalValue() + 0.5M),
+                Levererad = false,
+                UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier)
             };
 
             order.BestallningMatratt = new List<BestallningMatratt>();
@@ -33,8 +37,8 @@ namespace SamsPizzeria.Controllers
                 order.BestallningMatratt.Add(
                     new BestallningMatratt
                     {
-                        Matratt=line.Dish,
-                        Antal=line.Quantity 
+                        Matratt = line.Dish,
+                        Antal = line.Quantity
                     }
                     );
             }
