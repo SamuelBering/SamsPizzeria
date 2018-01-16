@@ -27,13 +27,46 @@ namespace SamsPizzeria.Models
 
         public void AddOrUpdate(Matratt dish)
         {
-            _dbContext.AttachRange(dish.MatrattProdukt.Select(dp => dp.Produkt));
-            _dbContext.Attach(dish.MatrattTypNavigation);
 
-            if (dish.MatrattId == 0)
+            if (dish.MatrattId != 0)
+            {
+
+
+                Matratt oldDish = _dbContext.Matratt.Include(d => d.MatrattProdukt)
+                    .Single(d => d.MatrattId == dish.MatrattId);
+
+                oldDish.MatrattProdukt.Clear();
+
+                _dbContext.SaveChanges();
+
+                oldDish.MatrattNamn = dish.MatrattNamn;
+                oldDish.MatrattProdukt = dish.MatrattProdukt;
+                oldDish.MatrattTyp = dish.MatrattTyp;
+                oldDish.Beskrivning = dish.Beskrivning;
+                oldDish.Pris = dish.Pris;
+
+                _dbContext.AttachRange(oldDish.MatrattProdukt.Select(dp => dp.Produkt));
+                _dbContext.SaveChanges();
+
+            }
+            else
+            {
+                _dbContext.AttachRange(dish.MatrattProdukt.Select(dp => dp.Produkt));
                 _dbContext.Matratt.Add(dish);
 
-            _dbContext.SaveChanges();
+                _dbContext.SaveChanges();
+
+            }
+
+
+            //_dbContext.AttachRange(dish.MatrattProdukt);
+
+
+            //_dbContext.Attach(dish.MatrattTypNavigation);
+
+            //if (dish.MatrattId == 0)
+            //    _dbContext.Matratt.Add(dish);
+
         }
 
         public IQueryable<MatrattTyp> Categories => _dbContext.MatrattTyp;

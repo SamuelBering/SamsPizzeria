@@ -36,6 +36,38 @@ namespace SamsPizzeria.Services
                 return null;
         }
 
+        public DishModificationModel GetEmptyDish()
+        {
+            var categories = _dishRepository.Categories.ToList();
+            var products = _dishRepository.Products.ToList();
+
+            return CreateViewModel(new Matratt(), categories, products);
+        }
+
+        public DishModificationModel AddCategoriesAndProductsSelectList(DishModificationModel d)
+        {
+            var categories = _dishRepository.Categories.ToList();
+            var products = _dishRepository.Products.ToList();
+
+            d.Categories = categories.Select(c =>
+                     new SelectListItem
+                     {
+                         Value = c.MatrattTyp1.ToString(),
+                         Text = c.Beskrivning,
+                         Selected = d.SelectedCategoryId == c.MatrattTyp1
+                     }).ToList();
+
+            d.Products = products.Select(p =>
+                   new SelectListItem
+                   {
+                       Value = p.ProduktId.ToString(),
+                       Text = p.ProduktNamn,
+                       Selected = d.SelectedProductIds?.Any(id => id == p.ProduktId) ?? false
+                   }).ToList();
+
+            return d;
+        }
+
         private DishModificationModel CreateViewModel(Matratt d, List<MatrattTyp> categories, List<Produkt> products)
         {
             var dishVM = new DishModificationModel
@@ -44,7 +76,7 @@ namespace SamsPizzeria.Services
                 Name = d.MatrattNamn,
                 Description = d.Beskrivning,
                 SelectedCategoryId = d.MatrattTyp,
-                SelectedCategory = d.MatrattTypNavigation.Beskrivning,
+                SelectedCategory = d.MatrattTypNavigation?.Beskrivning,
                 Price = d.Pris,
                 Categories = categories.Select(c =>
                     new SelectListItem
@@ -75,6 +107,31 @@ namespace SamsPizzeria.Services
 
             return dishesVM;
         }
+
+        public void AddOrUpdate(DishModificationModel dishVM)
+        {
+            Matratt dishDB = new Matratt
+            {
+                MatrattId = dishVM.Id,
+                MatrattNamn = dishVM.Name,
+                MatrattTyp = dishVM.SelectedCategoryId,
+                Beskrivning = dishVM.Description,
+                Pris = dishVM.Price,
+                MatrattProdukt = dishVM.SelectedProductIds.Select(id =>
+                  new MatrattProdukt
+                  {
+                      
+                      Produkt=new Produkt
+                      {                          
+                          ProduktId=id
+                      }
+                      
+                  }
+                ).ToList()
+            };
+            _dishRepository.AddOrUpdate(dishDB);
+        }
+
 
     }
 }

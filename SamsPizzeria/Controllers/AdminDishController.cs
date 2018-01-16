@@ -24,16 +24,24 @@ namespace SamsPizzeria.Controllers
             return View(_dishService.GetDishes());
         }
 
-        public ViewResult EditDish(int id)
+        public ViewResult EditDish(int? id)
         {
-            return View(_dishService.GetDish(id));
+            DishModificationModel dish = id != null ? _dishService.GetDish(id.Value) : _dishService.GetEmptyDish();
+
+            return View(dish);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ViewResult EditDish(DishModificationModel dish)
+        public IActionResult EditDish(DishModificationModel dish)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                _dishService.AddOrUpdate(dish);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(_dishService.AddCategoriesAndProductsSelectList(dish));
         }
 
 

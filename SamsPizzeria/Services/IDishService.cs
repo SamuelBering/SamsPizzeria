@@ -11,5 +11,12 @@ namespace SamsPizzeria.Services
         ICollection<DishModificationModel> GetDishes();
 
         DishModificationModel GetDish(int id);
+
+        void AddOrUpdate(DishModificationModel dishVM);
+
+        DishModificationModel GetEmptyDish();
+
+        DishModificationModel AddCategoriesAndProductsSelectList(DishModificationModel d);
+
     }
 }
