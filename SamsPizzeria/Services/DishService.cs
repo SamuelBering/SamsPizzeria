@@ -120,18 +120,57 @@ namespace SamsPizzeria.Services
                 MatrattProdukt = dishVM.SelectedProductIds.Select(id =>
                   new MatrattProdukt
                   {
-                      
-                      Produkt=new Produkt
-                      {                          
-                          ProduktId=id
+
+                      Produkt = new Produkt
+                      {
+                          ProduktId = id
                       }
-                      
+
                   }
                 ).ToList()
             };
             _dishRepository.AddOrUpdate(dishDB);
         }
 
+        public void AddOrUpdateIngredient(Ingredient ingredient)
+        {
+            var produkt = new Produkt
+            {
+                ProduktId = ingredient.Id ?? 0,
+                ProduktNamn = ingredient.Name
+            };
 
+            _dishRepository.AddOrUpdateIngredient(produkt);
+        }
+
+        public ICollection<Ingredient> GetIngredients()
+        {
+            var ingredients = _dishRepository.Products.Select(p =>
+              new Ingredient
+              {
+                  Id = p.ProduktId,
+                  Name = p.ProduktNamn
+              }).ToList();
+
+            return ingredients;
+        }
+
+        public Ingredient GetIngredient(int id)
+        {
+            var product = _dishRepository.Products.SingleOrDefault(p => p.ProduktId == id);
+
+            if (product != null)
+            {
+                var ingredient = new Ingredient
+                {
+                    Id=product.ProduktId,
+                    Name=product.ProduktNamn
+                };
+
+                return ingredient;
+            }
+            else
+                return null;
+        }
     }
 }

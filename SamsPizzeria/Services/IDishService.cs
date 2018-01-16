@@ -18,5 +18,11 @@ namespace SamsPizzeria.Services
 
         DishModificationModel AddCategoriesAndProductsSelectList(DishModificationModel d);
 
+        void AddOrUpdateIngredient(Ingredient ingredient);
+
+        ICollection<Ingredient> GetIngredients();
+
+        Ingredient GetIngredient(int id);
+
     }
 }

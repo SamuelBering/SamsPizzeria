@@ -44,6 +44,28 @@ namespace SamsPizzeria.Controllers
             return View(_dishService.AddCategoriesAndProductsSelectList(dish));
         }
 
+        public ViewResult ViewIngredients()
+        {
+            return View(_dishService.GetIngredients());
+        }
+
+        public ViewResult EditIngredient(int? id)
+        {
+            return View(id != null ? _dishService.GetIngredient(id.Value) : null);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult EditIngredient(Ingredient ingredient)
+        {
+            if (ModelState.IsValid)
+            {
+                _dishService.AddOrUpdateIngredient(ingredient);
+                return RedirectToAction(nameof(ViewIngredients));
+            }
+
+            return View(ingredient);
+        }
 
     }
 }

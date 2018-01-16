@@ -7,6 +7,7 @@ namespace SamsPizzeria.Models
 {
     public interface IDishRepository
     {
+        
         IQueryable<Matratt> Dishes { get; }
 
         IQueryable<MatrattTyp> Categories { get; }
@@ -15,5 +16,6 @@ namespace SamsPizzeria.Models
 
         void AddOrUpdate(Matratt dish);
 
+        void AddOrUpdateIngredient(Produkt produkt);
     }
 }

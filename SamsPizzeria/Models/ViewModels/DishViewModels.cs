@@ -23,7 +23,7 @@ namespace SamsPizzeria.Models.ViewModels
         public int Id { get; set; }
         [DisplayName("Namn")]
         [Required(ErrorMessage = "Namn är obligatoriskt")]
-        [StringLength(40, MinimumLength = 3,ErrorMessage ="Namnet måste var minst 3 och max 40 tecken")]
+        [StringLength(40, MinimumLength = 3, ErrorMessage = "Namnet måste var minst 3 och max 40 tecken")]
         public string Name { get; set; }
         [DisplayName("Beskrivning")]
         public string Description { get; set; }
@@ -39,5 +39,15 @@ namespace SamsPizzeria.Models.ViewModels
         [Required(ErrorMessage = "Du måste välja minst en ingrediens")]
         public int[] SelectedProductIds { get; set; }
         public List<SelectListItem> Products { get; set; }
+    }
+
+    public class Ingredient
+    {
+        [DisplayName("Ingrediensnummer")]
+        public int? Id { get; set; }
+        [DisplayName("Namn")]
+        [Required(ErrorMessage = "Namn är obligatoriskt")]
+        [StringLength(40, MinimumLength = 3, ErrorMessage = "Namnet måste var minst 3 och max 40 tecken")]
+        public string Name { get; set; }
     }
 }

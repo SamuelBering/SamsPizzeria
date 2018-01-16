@@ -57,17 +57,17 @@ namespace SamsPizzeria.Models
                 _dbContext.SaveChanges();
 
             }
-
-
-            //_dbContext.AttachRange(dish.MatrattProdukt);
-
-
-            //_dbContext.Attach(dish.MatrattTypNavigation);
-
-            //if (dish.MatrattId == 0)
-            //    _dbContext.Matratt.Add(dish);
-
         }
+
+        public void AddOrUpdateIngredient(Produkt produkt)
+        {
+            _dbContext.Entry(produkt).State = produkt.ProduktId == 0 ?
+                                   EntityState.Added :
+                                   EntityState.Modified;
+
+            _dbContext.SaveChanges();
+        }
+
 
         public IQueryable<MatrattTyp> Categories => _dbContext.MatrattTyp;
 
