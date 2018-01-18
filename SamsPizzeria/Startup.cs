@@ -44,6 +44,7 @@ namespace SamsPizzeria
             services.AddTransient<IDishService, DishService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddScoped<IDiscountService, DiscountService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IOrderRepository, EFOrderRepository>();
             services.AddMemoryCache();

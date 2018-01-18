@@ -34,3 +34,20 @@
         display: none;
     }
 }
+
+.cart-summary {
+    margin-right: 50px;
+    margin-top: 5px;
+}
+
+.cart-summary i, .logout-button i {
+        font-size: 150%;
+}
+
+.logout-button {
+    margin-top: 7px;
+}
+
+.select-multiple {
+    height: 75px;
+}

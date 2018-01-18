@@ -21,9 +21,9 @@
                 <td>@user.Email</td>
                 <td>
                     <form asp-action="UpdateUserRole" method="post">
-                        <select id="SelectedRoleIds" name="SelectedRoleIds" multiple="multiple" asp-items="@user.Roles"></select>
+                        <select class="custom-select select-multiple" id="SelectedRoleIds" name="SelectedRoleIds" multiple="multiple" asp-items="@user.Roles"></select>
                         <input type="hidden" name="UserId" value="@user.UserId" />
-                        <input type="submit" value="Spara" class="btn btn-default" />
+                        <input class="btn btn-primary btn-sm" type="submit" value="Spara" class="btn btn-default" />
                     </form>
                 </td>
             </tr>
