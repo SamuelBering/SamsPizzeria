@@ -86,7 +86,9 @@ namespace Users.Controllers
                 IdentityResult result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("List", "Product");
+                    await userManager.AddToRoleAsync(user, "RegularUser");
+
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
