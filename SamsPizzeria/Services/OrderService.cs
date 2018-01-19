@@ -70,6 +70,29 @@ namespace SamsPizzeria.Services
             _repository.DeleteOrder(orderId);
         }
 
+        public async Task<OrderDetailsModel> GetOrderDetails(int orderId)
+        {
+            var order = _repository.Orders.Single(o => o.BestallningId == orderId);
+
+            OrderDetailsModel orderVM = new OrderDetailsModel
+            {
+                Dishes = order.BestallningMatratt.Select(od =>
+                    new DishDetailsModel
+                    {
+                        Name = od.Matratt.MatrattNamn,
+                        Quantity = od.Antal,
+                        Price = od.Matratt.Pris * od.Antal
+                    }).ToList(),
+                Discount = order.BestallningMatratt.Sum(od => od.Matratt.Pris * od.Antal) - order.Totalbelopp,
+                TotalAmount = order.Totalbelopp,
+                UserId = order.UserId,
+                UserName = (await _userManager.FindByIdAsync(order.UserId)).UserName
+            };
+
+            return orderVM;
+        }
+
+
     }
 }
 

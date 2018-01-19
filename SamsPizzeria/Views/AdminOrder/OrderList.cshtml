@@ -41,6 +41,9 @@
                     </form>
                 </td>
                 <td>
+                    <!--DetailsOrderModal-->
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#DetailsOrderModal" data-orderId="@order.OrderId">Info</button>
+
                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteOrderModal" data-orderId="@order.OrderId">Ta bort</button>
                 </td>
             </tr>
@@ -65,6 +68,27 @@
             <div class="modal-footer">
                 <button id="okButton" type="button" class="btn btn-primary">Ok</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Avbryt</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Details order modal -->
+<div class="modal fade" id="DetailsOrderModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Info - beställning</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="DetailsOrderDiv">
+                <p>Test</p>
+            </div>
+            <div class="modal-footer">
+                <button id="okButton" type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
             </div>
         </div>
     </div>

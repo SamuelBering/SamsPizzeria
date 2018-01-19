@@ -46,7 +46,14 @@ namespace SamsPizzeria.Controllers
             }
 
             return Ok("Order with id: " + orderId + "was deleted");
-
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var orderVM = await _orderService.GetOrderDetails(id);
+
+            return PartialView("_Details", orderVM);
+        }
+
     }
 }

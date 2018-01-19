@@ -13,6 +13,8 @@ namespace SamsPizzeria.Services
         void UpdateOrderStatus(int orderId, bool status);
 
         void DeleteOrder(int orderId);
+
+        Task<OrderDetailsModel> GetOrderDetails(int orderId);
         
     }
 }

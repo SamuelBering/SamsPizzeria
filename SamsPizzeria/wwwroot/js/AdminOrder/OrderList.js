@@ -4,38 +4,51 @@ $(".orderStatus").change(event => {
     $(form).submit();
 });
 
-$('#DeleteOrderModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget); // Button that triggered the modal
-    var orderId = button.data('orderid'); // Extract info from data-* attributes
+$('#DetailsOrderModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var orderId = button.data('orderid');
+    var detailsOrderDiv = $("#DetailsOrderDiv");
+    detailsOrderDiv.empty();
+    startSpinAnimation();
 
-
-    var modal = $(this);
-    let okButton = $("#okButton");
-    okButton.unbind('click');
-
-    okButton.click(() => {
-        startSpinAnimation();
-        $.ajax({
-            type: "POST",
-            url: "/AdminOrder/DeleteOrder",
-            data: { orderID: orderId },
-            success: function (data) {
-                let o = $(`#order-${orderId}`);
-                o.remove();
-            },
-            complete: function () {
-                stopSpinAnimation();
-            },
-            error: function (xhr, status, error) {
-                alert("Ett oväntat fel uppstod. Kunde ej ta bort order.");
-            }
-        });
-
-        console.log("OrderID är " + orderId);
-        modal.modal('hide');
+    detailsOrderDiv.load(`/AdminOrder/Details/${orderId}`, function () {
+        stopSpinAnimation();
     });
 
 });
+
+$('#DeleteOrderModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var orderId = button.data('orderid'); // Extract info from data-* attributes
+
+
+        var modal = $(this);
+        let okButton = $("#okButton");
+        okButton.unbind('click');
+
+        okButton.click(() => {
+            startSpinAnimation();
+            $.ajax({
+                type: "POST",
+                url: "/AdminOrder/DeleteOrder",
+                data: { orderID: orderId },
+                success: function (data) {
+                    let o = $(`#order-${orderId}`);
+                    o.remove();
+                },
+                complete: function () {
+                    stopSpinAnimation();
+                },
+                error: function (xhr, status, error) {
+                    alert("Ett oväntat fel uppstod. Kunde ej ta bort order.");
+                }
+            });
+
+            console.log("OrderID är " + orderId);
+            modal.modal('hide');
+        });
+
+    });
 
 function onBegin(context) {
     startSpinAnimation();
