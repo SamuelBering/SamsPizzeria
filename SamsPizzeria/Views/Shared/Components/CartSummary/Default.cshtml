@@ -6,7 +6,12 @@
         <small class="navbar-text">
             <b>Din kundvagn:</b>
             @Model.Lines.Sum(l => l.Quantity) maträtt(er)
-            @Model.ComputeTotalValue().ToString("c")
+            @{
+                decimal totalAmount = Model.ComputeTotalValue() - ViewBag.DiscountsTotalValue;
+                <text>
+                @totalAmount.ToString("c")
+                </text>
+            }
         </small>
     }
     <a class="btn btn-sm btn-secondary navbar-btn"

@@ -18,12 +18,56 @@ namespace SamsPizzeria.Models.ViewModels
         public string LastName { get; set; }
 
         [Required]
+        [UIHint("email")]
         [EmailAddress(ErrorMessage = "Ogiltig email")]
         public string Email { get; set; }
 
+        [UIHint("password")]
         [Display(Name = "Lösenord")]
         [Required]
         public string Password { get; set; }
+
+        [Display(Name = "Gatuadress")]
+        [Required]
+        public string StreetAddress { get; set; }
+
+        [Display(Name = "Postnummer")]
+        [Required]
+        public string ZipCode { get; set; }
+
+        [Display(Name = "Postort")]
+        [Required]
+        public string PostTown { get; set; }
+    }
+
+    public class EditModel
+    {
+        [Display(Name = "Förnamn")]
+        [Required]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Efternamn")]
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        [UIHint("email")]
+        [EmailAddress(ErrorMessage = "Ogiltig email")]
+        public string Email { get; set; }
+
+        [UIHint("password")]
+        [Required]
+        [Display(Name = "Lösenord")]        
+        public string Password { get; set; }
+
+        [UIHint("password")]
+        [Display(Name = "Nytt lösenord")]
+        public string NewPassword { get; set; }
+
+        [UIHint("password")]
+        [Display(Name = "Konfirmera nytt lösenord")]
+        [Compare(nameof(NewPassword),ErrorMessage ="Lösenorden överrensstämmer inte")]
+        public string ConfirmPassword { get; set; }
 
         [Display(Name = "Gatuadress")]
         [Required]
