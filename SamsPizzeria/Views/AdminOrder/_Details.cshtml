@@ -1,0 +1,41 @@
+﻿@model OrderDetailsModel
+
+<p>Användarnamn: @Model.UserName</p>
+<p>Användarid: @Model.UserId</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Antal</th>
+            <th>Maträtt</th>
+            <th class="text-right">Summa</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dishDetails in Model.Dishes)
+        {
+            <tr>
+                <td class="text-center">@dishDetails.Quantity</td>
+                <td class="text-left">@dishDetails.Name</td>
+                <td class="text-right">@dishDetails.Price.ToString("c")</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        @if (Model.Discount > 0)
+        {
+        <tr>
+            <td colspan="2" class="text-right">Rabatt:</td>
+            <td class="text-right">
+               @Model.Discount.ToString("c")
+            </td>
+        </tr>
+        }
+        <tr>
+            <td colspan="2" class="text-right">Totalt:</td>
+            <td class="text-right">
+               @Model.TotalAmount.ToString("c")
+            </td>
+        </tr>
+    </tfoot>
+</table>
