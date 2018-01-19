@@ -11,9 +11,10 @@ using System;
 namespace SamsPizzeria.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    partial class AppIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180118100526_TestBlankMigration")]
+    partial class TestBlankMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,8 +135,6 @@ namespace SamsPizzeria.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
-
-                    b.Property<int>("Bonus");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();

@@ -9,9 +9,9 @@ using SamsPizzeria.Models;
 
 namespace SamsPizzeria.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
-    {
-        [Authorize]
+    {        
         public IActionResult Index()
         {
             return View();

@@ -11,9 +11,10 @@ using System;
 namespace SamsPizzeria.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    partial class AppIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180118102456_ExtendedAppuserWithBonus")]
+    partial class ExtendedAppuserWithBonus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

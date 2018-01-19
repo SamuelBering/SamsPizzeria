@@ -1,0 +1,38 @@
+﻿@model ICollection<Ingredient>
+
+@{
+    ViewData["Title"] = "Uppdatera ingredienser";
+}
+
+<h2>Uppdatera ingredienser</h2>
+
+<a asp-action="EditIngredient" class="btn btn-primary btn-sm" role="button">Ny ingrediens</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Namn</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ingredient in Model)
+        {
+            <tr>
+                <td>
+                    @ingredient.Id
+                </td>
+                <td>
+                    @ingredient.Name
+                </td>
+                
+                <td>
+                    <a asp-action="EditIngredient" asp-route-id="@ingredient.Id" class="btn btn-primary btn-sm" role="button">Redigera</a>
+                </td>
+            </tr>
+
+        }
+
+    </tbody>
+</table>
+

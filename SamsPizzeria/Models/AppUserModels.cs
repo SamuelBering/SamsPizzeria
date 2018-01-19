@@ -11,5 +11,6 @@ namespace SamsPizzeria.Models
         public string StreetAddress { get; set; }
         public string ZipCode { get; set; }
         public string PostTown { get; set; }
+        public int Bonus { get; set; }
     }
 }
