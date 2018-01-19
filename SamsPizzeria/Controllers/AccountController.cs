@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -101,10 +102,91 @@ namespace Users.Controllers
         [AllowAnonymous]
         public IActionResult AccessDenied(string returnUrl)
         {
-            
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(EditModel editModel)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = await userManager.GetUserAsync(User);
+
+                var isValidPassword = await userManager.CheckPasswordAsync(user, editModel.Password);
+                if (!isValidPassword)
+                {
+                    ModelState.AddModelError(nameof(EditModel.Password), "Felaktigt lösenord");
+                    return View(editModel);
+                }
+
+                if (editModel.NewPassword != null)
+                {
+                    if (editModel.Password == null)
+                    {
+                        ModelState.AddModelError(nameof(EditModel.Password), "Ange ditt nuvarande lösenord");
+                        return View(editModel);
+                    }
+
+                    var result = await userManager.ChangePasswordAsync(user, editModel.Password, editModel.NewPassword);
+
+                    if (!result.Succeeded)
+                    {
+                        AddModelError("", result);
+                        return View(editModel);
+                    }
+                }
+                
+                user.FirstName = editModel.FirstName;
+                user.LastName = editModel.LastName;
+                user.Email = editModel.Email;
+                user.StreetAddress = editModel.StreetAddress;
+                user.PostTown = editModel.PostTown;
+                user.ZipCode = editModel.ZipCode;
+
+                var updateResult = await userManager.UpdateAsync(user);
+
+                if (!updateResult.Succeeded)
+                {
+                    AddModelError("", updateResult);
+                    return View(editModel);
+                }
+
+                return RedirectToAction(nameof(ConfirmAccountUpdate));
+            }
+
+            return View(editModel);
+        }
+
+        public ViewResult ConfirmAccountUpdate()
+        {
+            return View();
+        }
+
+        private void AddModelError(string key, IdentityResult identityResult)
+        {
+            foreach (var error in identityResult.Errors)
+                ModelState.AddModelError(key, error.Description);
+        }
+
+        public async Task<ViewResult> Edit()
+        {
+            AppUser user = await userManager.GetUserAsync(User);
+
+            EditModel userVM = new EditModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PostTown = user.PostTown,
+                StreetAddress = user.StreetAddress,
+                ZipCode = user.ZipCode
+            };
+
+            return View(userVM);
+        }
     }
 }

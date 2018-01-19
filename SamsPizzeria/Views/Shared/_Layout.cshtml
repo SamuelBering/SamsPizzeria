@@ -28,15 +28,21 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarToggler">
-            <a class="navbar-brand" href="#">Tomasos Pizzeria</a>
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">Tomasos Pizzeria</a>
 
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" asp-controller="Home" asp-action="Index">Home </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Product" asp-action="List">Meny</a>
-                </li>
+
+                @if (User?.Identity?.IsAuthenticated ?? false)
+                {
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Product" asp-action="List">Meny</a>
+                    </li>
+                }
+
                 @if (User?.IsInRole("Admin") ?? false)
                 {
                     <li class="nav-item dropdown">
@@ -51,19 +57,32 @@
                         </div>
                     </li>
                 }
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Account" asp-action="Register">Skapa konto</a>
-                </li>
+
+
+                @if (User?.Identity?.IsAuthenticated ?? false)
+                {
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownSettings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownSettings">
+                            <a class="dropdown-item" asp-controller="Account" asp-action="Edit">Konto</a>
+                        </div>
+                    </li>
+                }
 
             </ul>
 
-            @await Component.InvokeAsync("CartSummary")
-
             @if (User?.Identity?.IsAuthenticated ?? false)
             {
-            <div class="logout-button">
-                <a asp-controller="Account" asp-action="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
-            </div>
+                <text>
+                @await Component.InvokeAsync("CartSummary")
+                </text>
+
+                <div class="logout-button">
+                    <a asp-controller="Account" asp-action="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                </div>
             }
 
 
