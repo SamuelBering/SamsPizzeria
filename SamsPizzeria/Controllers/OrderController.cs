@@ -42,7 +42,7 @@ namespace SamsPizzeria.Controllers
 
             foreach (CartLine line in cart.Lines)
             {
-                order.BestallningMatratt.Add(
+                order.BestallningMatratt.Add( 
                     new BestallningMatratt
                     {
                         Matratt = line.Dish,
@@ -51,7 +51,7 @@ namespace SamsPizzeria.Controllers
                     );
             }
 
-            repository.SaveOrder(order);
+             repository.SaveOrder(order);
 
             await discountService.SaveBonus(discounts, cart);
 
