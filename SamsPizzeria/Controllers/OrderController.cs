@@ -44,7 +44,7 @@ namespace SamsPizzeria.Controllers
             {
                 order.BestallningMatratt.Add( 
                     new BestallningMatratt
-                    {
+                    {   
                         Matratt = line.Dish,
                         Antal = line.Quantity
                     }
