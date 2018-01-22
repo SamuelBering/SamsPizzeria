@@ -14,7 +14,7 @@ namespace Users.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-       
+
         private IUserRolesService userRolesService;
 
         public AdminController(IUserRolesService userRolesServ)
@@ -31,13 +31,15 @@ namespace Users.Controllers
                 await userRolesService.UpdateUserRoles(userVM);
                 return RedirectToAction(nameof(Index));
             }
-            return View(nameof(Index), await userRolesService.GetUsers());
+
+            return RedirectToAction(nameof(Index));
+
         }
 
         public async Task<ViewResult> Index()
-        {            
+        {
             var usersVM = await userRolesService.GetUsers();
-            
+
             return View(usersVM);
         }
     }

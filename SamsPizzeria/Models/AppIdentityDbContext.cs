@@ -39,10 +39,14 @@ namespace SamsPizzeria.Models
             UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
             RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
+            //var adminUser = await userManager.FindByNameAsync("admin@samspizzeria.se");
+            //await userManager.AddToRoleAsync(adminUser, "Admin");
+
             var usersVM = configuration.GetSection("Data:DefaultUsers").Get<CreateDefaultUserModel[]>();
 
             foreach (var userVM in usersVM)
             {
+                
                 if (await userManager.FindByNameAsync(userVM.Email) == null)
                 {
                    

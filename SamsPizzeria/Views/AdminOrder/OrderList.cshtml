@@ -14,7 +14,6 @@
     <thead>
         <tr>
             <th>Ordernummer</th>
-            <th>KundId</th>
             <th>Kundnamn</th>
             <th>Totalbelopp</th>
             <th>Datum</th>
@@ -27,7 +26,6 @@
         {
             <tr id="order-@order.OrderId">
                 <td>@order.OrderId</td>
-                <td>@order.CustomerId</td>
                 <td>@order.CustomerName</td>
                 <td>@order.TotalAmount</td>
                 <td>@order.OrderDate.ToShortDateString()</td>
