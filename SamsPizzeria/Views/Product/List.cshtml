@@ -1,13 +1,35 @@
 ﻿@model IEnumerable<Dish>
 
 @{
-    ViewData["Title"] = "List";
+    ViewData["Title"] = "Meny";
 }
 
+<div class="row">
 
-<h2>List</h2>
+    <div id="cartContainer" class="hideDiv">
+        <div class="col-12" id="cartDiv">
+        </div>
+    </div>
 
-@foreach (Dish d in Model)
-{
-    @Html.Partial("ProductSummary", d)
+    <div id="productsContatainer" class="col-lg-12">
+        <h2>Meny</h2>
+
+        @foreach (Dish d in Model)
+        {
+            @Html.Partial("ProductSummary", d)
+        }
+    </div>
+
+</div>
+
+
+
+@section CSS
+    {
+    <link href="~/css/Cart/Index.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@section Scripts
+    {
+    <script src="~/js/Product/List.js"></script>
 }

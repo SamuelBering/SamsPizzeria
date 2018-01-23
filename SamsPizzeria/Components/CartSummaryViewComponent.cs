@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SamsPizzeria.Infrastructure;
 using SamsPizzeria.Models;
 using SamsPizzeria.Services;
 using System.Linq;
@@ -17,8 +18,13 @@ namespace SamsPizzeria.Components
             this.discountService = discountService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(string returnUrl)
         {
+            if (returnUrl == null)
+                ViewBag.ReturnUrl = HttpContext.Request.PathAndQuery();
+            else
+                ViewBag.ReturnUrl = returnUrl;
+
             var discounts = await this.discountService.GetDiscountsAsync(cart);
 
             ViewBag.DiscountsTotalValue = discounts?.Sum(d => d.Value) ?? 0;

@@ -1,3 +1,21 @@
 ﻿.discounts {
     max-width: 300px;
 }
+
+@media screen and (min-width: 992px) {
+    #cartDiv {
+        position: fixed;
+        max-width: 30vw;        
+        overflow-y:scroll;
+        max-height:80vh;
+        overflow-x:scroll;
+        
+    }
+}
+.hideDiv
+{
+    display:none;
+}
+/*#cartDiv {
+    position: fixed; max-width: 40%;
+}*/
