@@ -12,7 +12,15 @@
         </h7>
     </div>
 
-    <form id="@Model.Id" asp-action="AddToCart" asp-controller="Cart" method="post">
+    <form id="@Model.Id"
+          asp-action="AddToCart"
+          asp-controller="Cart"
+          data-ajax="true"
+          data-ajax-method="POST"
+          data-ajax-mode="replace"
+          data-ajax-update="#cartDiv"
+          data-ajax-complete="updateCartViewComponent">
+
         <input type="hidden" asp-for="Id" />
         <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
         <div class="card-text p-1">
@@ -27,22 +35,10 @@
                 }
             </ul>
             <button type="submit"
-                    class="btn btn-success btn-sm pull-right" style="float:right">
-                Add To Cart
+                    class="btn btn-success btn-sm pull-right addToCartButton" style="float:right">
+                Lägg i varukorgen
             </button>
         </div>
     </form>
 
-    @*<div class="card-text p-1">
-            <p>
-                @Model.Description
-            </p>
-            <h6>Ingredienser</h6>
-            <ul>
-                @foreach (string product in Model.Products)
-                {
-                    <li>@product</li>
-                }
-            </ul>
-        </div>*@
 </div>

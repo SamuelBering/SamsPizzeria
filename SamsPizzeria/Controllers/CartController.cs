@@ -39,7 +39,7 @@ namespace SamsPizzeria.Controllers
             });
         }
 
-        public RedirectToActionResult AddToCart(int id, string returnUrl)
+        public async Task<PartialViewResult> AddToCart(int id, string returnUrl)
         {
             Matratt dish = repository.Dishes
             .FirstOrDefault(d => d.MatrattId == id);
@@ -47,10 +47,22 @@ namespace SamsPizzeria.Controllers
             {
                 cart.AddItem(dish, 1);
             }
-            return RedirectToAction("Index", new { returnUrl });
+
+            var discounts = await this.discountService.GetDiscountsAsync(cart);
+
+            ViewBag.DiscountsTotalValue = discounts?.Sum(d => d.Value) ?? 0;
+
+            return PartialView("_CartContent",
+                 new CartIndexViewModel
+                 {
+                     Cart = cart,
+                     ReturnUrl = returnUrl,
+                     Discounts = discounts
+                 }
+                );
         }
 
-        public RedirectToActionResult RemoveFromCart(int id, string returnUrl)
+        public async Task<PartialViewResult> RemoveFromCart(int id, string returnUrl)
         {
             Matratt dish = repository.Dishes
             .FirstOrDefault(d => d.MatrattId == id);
@@ -58,7 +70,24 @@ namespace SamsPizzeria.Controllers
             {
                 cart.RemoveLine(dish);
             }
-            return RedirectToAction("Index", new { returnUrl });
+
+            var discounts = await this.discountService.GetDiscountsAsync(cart);
+
+            ViewBag.DiscountsTotalValue = discounts?.Sum(d => d.Value) ?? 0;
+
+            return PartialView("_CartContent",
+                 new CartIndexViewModel
+                 {
+                     Cart = cart,
+                     ReturnUrl = returnUrl,
+                     Discounts = discounts
+                 }
+                );
+        }
+
+        public ViewComponentResult UpdateCartSummary()
+        {
+            return ViewComponent("CartSummary",new { returnUrl="/product/list"});
         }
 
     }

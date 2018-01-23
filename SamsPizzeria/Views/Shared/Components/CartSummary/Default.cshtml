@@ -1,22 +1,26 @@
 ﻿@model Cart
 
-<div class="cart-summary">
-    @if (Model.Lines.Count() > 0)
-    {
-        <small class="navbar-text">
-            <b>Din kundvagn:</b>
-            @Model.Lines.Sum(l => l.Quantity) maträtt(er)
-            @{
-                decimal totalAmount = Model.ComputeTotalValue() - ViewBag.DiscountsTotalValue;
-                <text>
-                @totalAmount.ToString("c")
-                </text>
-            }
-        </small>
-    }
-    <a class="btn btn-sm btn-secondary navbar-btn"
-       asp-controller="Cart" asp-action="Index"
-       asp-route-returnurl="@ViewContext.HttpContext.Request.PathAndQuery()">
-        <i class="fa fa-shopping-cart"></i>
-    </a>
+<div id="cart-summary-container">
+    <div class="cart-summary">
+        @if (Model.Lines.Count() > 0)
+        {
+            <small class="navbar-text">
+                <b>Din kundvagn:</b>
+                @Model.Lines.Sum(l => l.Quantity) maträtt(er)
+                @{
+                    decimal totalAmount = Model.ComputeTotalValue() - ViewBag.DiscountsTotalValue;
+                    <text>
+                    @totalAmount.ToString("c")
+                    </text>
+                }
+            </small>
+        }
+        <a class="btn btn-sm btn-secondary navbar-btn"
+           asp-controller="Cart" asp-action="Index"
+           asp-route-returnurl="@ViewBag.ReturnUrl">
+            <i class="fa fa-shopping-cart"></i>
+        </a>
+    </div>
 </div>
+
+@*asp-route-returnurl="@ViewContext.HttpContext.Request.PathAndQuery()*@
