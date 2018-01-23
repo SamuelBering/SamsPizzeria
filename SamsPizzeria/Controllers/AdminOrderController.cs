@@ -26,6 +26,7 @@ namespace SamsPizzeria.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult UpdateOrderStatus(int orderId, bool status)
         {
             _orderService.UpdateOrderStatus(orderId, status);
@@ -34,6 +35,7 @@ namespace SamsPizzeria.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteOrder(int orderId)
         {
             try
@@ -45,7 +47,11 @@ namespace SamsPizzeria.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
 
-            return Ok("Order with id: " + orderId + "was deleted");
+            return Ok(new
+            {
+                Message = "Order with id: " + orderId + "was deleted",
+                OrderId = orderId
+            });
         }
 
         public async Task<IActionResult> Details(int id)

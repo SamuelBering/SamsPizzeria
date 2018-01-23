@@ -55,7 +55,7 @@ namespace SamsPizzeria.Controllers
         }
 
         [HttpPost]
-        [AutoValidateAntiforgeryToken]
+        [ValidateAntiForgeryToken]
         public IActionResult EditIngredient(Ingredient ingredient)
         {
             if (ModelState.IsValid)

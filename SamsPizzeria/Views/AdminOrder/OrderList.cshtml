@@ -37,6 +37,16 @@
                         <input type="hidden" name="OrderId" value="@order.OrderId" />
                         <select class="orderStatus" name="Status" asp-items=@order.OrderStatusSelectList></select>
                     </form>
+
+                    <form id="deleteOrderForm-@order.OrderId" asp-action="DeleteOrder"
+                          data-ajax="true"
+                          data-ajax-method="POST"
+                          data-ajax-begin="onBegin"
+                          data-ajax-complete="onComplete"
+                          data-ajax-success="onSuccesRemoveOrder"
+                          data-ajax-failure="onError">
+                        <input type="hidden" name="orderID" value="@order.OrderId" />
+                    </form>
                 </td>
                 <td>
                     <!--DetailsOrderModal-->

@@ -39,6 +39,8 @@ namespace SamsPizzeria.Controllers
             });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<PartialViewResult> AddToCart(int id, string returnUrl)
         {
             Matratt dish = repository.Dishes
@@ -62,6 +64,8 @@ namespace SamsPizzeria.Controllers
                 );
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<PartialViewResult> RemoveFromCart(int id, string returnUrl)
         {
             Matratt dish = repository.Dishes
